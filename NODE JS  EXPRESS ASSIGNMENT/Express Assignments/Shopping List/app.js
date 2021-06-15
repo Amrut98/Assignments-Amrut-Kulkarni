@@ -44,6 +44,11 @@ app.get('/items/:id', (req, res) => {
     }
 });
 
+
+app.post('items', (req, res) => {
+    res.send(req.body.items);
+});
+
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
@@ -51,6 +56,17 @@ app.post('/items', (req, res) => {
     items.push(req.body);
     res.send("Item added successfully");
 });
+
+
+app.delete('/items/:id', (req, res) => {
+    const itemId = parseInt(req.params.id);
+    var item = items.find(item => item.id === itemId);
+    var itemIndex = items.indexOf(item);
+    items.splice(itemIndex, 1);
+    res.json(items);
+});
+
+
 
 
 
